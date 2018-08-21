@@ -1,6 +1,6 @@
-# `@usertech/sample-client-app`
+# `@usertech/example-client`
 
-Example app to serve as a reference for new projects.
+Example app to serve as a reference for real projects.
 
 ## Development
 
