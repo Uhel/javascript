@@ -1,0 +1,29 @@
+{
+  "name": "@usertech/example-client",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "neutrino build",
+    "start": "neutrino start",
+    "lint": "neutrino lint"
+  },
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-hot-loader": "^4.3.4"
+  },
+  "devDependencies": {
+    "@neutrinojs/react": "^8.3.0",
+    "@usertech/neutrino-preset-eslint-prettier": "https://github.com/usertech/neutrino-preset-eslint-prettier#0.0.2",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.4.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.11.1",
+    "neutrino": "^8.3.0",
+    "prettier": "^1.14.2"
+  }
+}
