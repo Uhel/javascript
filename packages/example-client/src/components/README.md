@@ -90,4 +90,3 @@ const renderExample = ({ handleClick }) => (
 
 export default withExample(renderExample);
 ```
->>>>>>> Stashed changes
