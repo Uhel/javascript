@@ -90,3 +90,7 @@ const renderExample = ({ handleClick }) => (
 
 export default withExample(renderExample);
 ```
+
+### Styling Components in Isolation
+
+Use [storybook](https://github.com/storybooks/storybook) to style components in isolation to promote clean separation of concerns.
