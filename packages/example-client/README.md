@@ -2,6 +2,15 @@
 
 Example app to serve as a reference for real projects.
 
+- [Development](#development)
+- [Architecture](#architecture)
+- [Used Libraries](#used-libraries)
+    - [Build](#build)
+    - [View](#view)
+    - [Data Management](#data-management)
+- [How to Start a New Project](#how-to-start-a-new-project)
+- [Project Structure](#project-structure)
+
 ## Development
 
 1. Install dependencies
@@ -11,6 +20,32 @@ Example app to serve as a reference for real projects.
 2. Start devserver
 
         $ yarn start
+
+## Architecture
+
+// TODO describe top level arch. view, move Used Libraries to
+specific READMEs in project sub-dirs.
+
+## Used Libraries
+
+### Build
+
+- neutrino
+- @usertech/neutrino-preset-eslint-prettier
+
+### View
+
+- react
+- react-router
+- @usertech/react-routing
+- styled-components
+- styled-map
+- styled-is
+- styled-prop
+
+### Data Management
+
+- react-apollo
 
 ## How to Start a New Project
 
@@ -53,3 +88,7 @@ Ignore `node_modules` directory at least.
 
 Follow [these instructions](https://github.com/usertech/neutrino-preset-eslint-prettier)
 to set up `@usertech/neutrino-preset-eslint-prettier`.
+
+## Project Structure
+
+// TODO
