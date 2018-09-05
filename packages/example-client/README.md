@@ -1,6 +1,6 @@
 # `@usertech/example-client`
 
-Example app to serve as a reference for real projects.
+Example app to serve as a reference for real world projects.
 
 - [Development](#development)
 - [Architecture](#architecture)
@@ -58,28 +58,28 @@ Make sure you are using `node@>=8.11.x`.
 
 ### 1. Use `@neutrinojs/create-project` with `yarn` to create a `react` project
 
-When in doubt, refer to [official docs](https://neutrinojs.org/installation/create-new-project.html).
+When in doubt, refer to [official neutrino docs](https://neutrinojs.org/installation/create-new-project.html).
 
 Pick an url friendly name for your project and refer to
-it solely by this name from now on, including repository name,
+it solely by this name from now on; including repository name,
 issue tracker project name etc.
-This prevents confusion and aids navigation.
+This practice prevents confusion and aids navigation.
 
     $ yarn create @neutrinojs/project my-project
 
 When asked, pick these options in order:
 
-- A web or Node.js application
-- React
-- None
-- None
+1. A web or Node.js application
+2. React
+3. None
+4. None
 
 When the process finishes, remove contents of `src` directory
 and create `src/index.js` as an entry point of your app.
 
 ### 2. Create `.gitignore`
 
-Ignore `node_modules` directory at least.
+Ignore `node_modules` directory.
 
     # .gitignore
     node_modules
