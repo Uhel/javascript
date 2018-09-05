@@ -38,6 +38,8 @@ specific READMEs in project sub-dirs.
 - react
 - react-router
 - @usertech/react-routing
+- react-final-form
+- simple-object-validation
 - styled-components
 - styled-map
 - styled-is
