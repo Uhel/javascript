@@ -13,6 +13,7 @@ Refer to [Example Client Project](packages/example-client) to:
 ## Libraries
 
 - [@usertech/bliss](https://github.com/usertech/bliss)
+- [@usertech/styled-utils](https://github.com/usertech/styled-utils)
 - [@usertech/react-routing](https://github.com/usertech/react-routing)
 - [@usertech/neutrino-preset-eslint-prettier](https://github.com/usertech/neutrino-preset-eslint-prettier)
 - [@usertech/neutrino-preset-graphql](https://github.com/usertech/neutrino-preset-graphql)
