@@ -15,3 +15,4 @@ Refer to [Example Client Project](packages/example-client) to:
 - [@usertech/bliss](https://github.com/usertech/bliss)
 - [@usertech/react-routing](https://github.com/usertech/react-routing)
 - [@usertech/neutrino-preset-eslint-prettier](https://github.com/usertech/neutrino-preset-eslint-prettier)
+- [@usertech/neutrino-preset-graphql](https://github.com/usertech/neutrino-preset-graphql)
