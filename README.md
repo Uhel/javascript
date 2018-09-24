@@ -17,3 +17,4 @@ Refer to [Example Client Project](packages/example-client) to:
 - [@usertech/react-routing](https://github.com/usertech/react-routing)
 - [@usertech/neutrino-preset-eslint-prettier](https://github.com/usertech/neutrino-preset-eslint-prettier)
 - [@usertech/neutrino-preset-graphql](https://github.com/usertech/neutrino-preset-graphql)
+- [@usertech/apollo-client-utils](https://github.com/usertech/apollo-client-utils)
