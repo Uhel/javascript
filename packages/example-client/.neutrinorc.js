@@ -5,9 +5,11 @@ module.exports = {
 			'@neutrinojs/react',
 			{
 				html: {
-					title: 'sample-client-app',
+					title: 'example-client',
 				},
 			},
 		],
+		(neutrino) => neutrino.config.resolve.modules.add(neutrino.options.source),
+		'@usertech/neutrino-preset-graphql',
 	],
 };

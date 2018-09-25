@@ -1,0 +1,6 @@
+query DashboardScreenQuery {
+	hello
+	foo
+	bar
+	baz
+}
