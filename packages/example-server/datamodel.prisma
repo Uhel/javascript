@@ -1,0 +1,33 @@
+type User {
+  id: ID! @unique
+  email: String! @unique
+  password: String
+  fullName: String
+  hasGravatar: Boolean
+  tacConsent: Boolean! @default(value: true)
+  accessTokens: [AccessToken!]!
+}
+
+type AccessToken { # snake-case field names as in OAuth2 spec
+  access_token: ID! @unique
+  refresh_token: ID! @unique
+  createdAt: DateTime!
+  expires_in: Int!
+  user: User!
+}
+
+type Message {
+  id: ID! @unique
+  content: String!
+  author: User!
+  channel: Channel!
+  createdAt: DateTime!
+}
+
+type Channel {
+  id: ID! @unique
+  title: String! @unique
+  messages: [Message!]!
+  author: User!
+  createdAt: DateTime!
+}

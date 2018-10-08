@@ -1,0 +1,47 @@
+version: '3'
+services:
+  db-api:
+    image: prismagraphql/prisma:1.17.2
+    restart: always
+    ports:
+    - "4466:4466"
+    environment:
+      PRISMA_CONFIG: |
+        port: 4466
+        databases:
+          default:
+            connector: postgres
+            host: db
+            port: 5432
+            user: prisma
+            password: prisma
+            migrations: true
+    healthcheck:
+      test: echo exit | telnet localhost 4466
+
+  db:
+    image: postgres:10.5
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+    volumes:
+    - postgres:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+    environment:
+    - NODE_ENV=development
+    volumes:
+    - ./node_modules:/opt/app/node_modules:ro
+    - ./src:/opt/app/src:ro
+    - ./src/generated:/opt/app/src/generated
+    - ./prisma.yml:/opt/app/prisma.yml:ro
+    - ./datamodel.prisma:/opt/app/datamodel.prisma:ro
+    - ./schema.graphql:/opt/app/schema.graphql:ro
+    ports:
+    - "4000:4000"
+
+volumes:
+  postgres:
