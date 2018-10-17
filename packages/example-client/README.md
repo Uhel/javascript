@@ -5,57 +5,31 @@ One of goals is to implement most of possible features of a typical application
 to showcase reusable solutions.
 
 - [Development](#development)
-- [Architecture](#architecture)
-- [Used Libraries](#used-libraries)
-    - [Build](#build)
-    - [View](#view)
-    - [Data Management](#data-management)
-- [How to Start a New Project](#how-to-start-a-new-project)
-- [Project Structure](#project-structure)
+- [Project Structure/How to Start a New Project](#how-to-start-a-new-project)
 
 ## Development
 
-1. Install dependencies
+Install dependencies
 
         $ yarn install --pure-lockfile
 
-2. Start devserver
+### App development
+
+Start devserver
 
         $ yarn start
 
-## Architecture
+### Components development
 
-// TODO describe top level arch. view, move Used Libraries to
-specific READMEs in project sub-dirs.
+Start storybook devserver
 
-## Used Libraries
-
-### Build
-
-- neutrino
-- @usertech/neutrino-preset-eslint-prettier
-
-### View
-
-- react
-- react-router
-- @usertech/react-routing
-- react-final-form
-- simple-object-validation
-- styled-components
-- styled-map
-- styled-is
-- styled-prop
-
-### Data Management
-
-- react-apollo
+        $ yarn storybook
 
 ## How to Start a New Project
 
 It's important to be able to create a new project from scratch.
 Just copying a boilerplate doesn't ensure proper understanding
-of why we do need all those files. Let's describe how this
+of why we do need all included files. Let's describe how this
 project was created in an empty directory.
 
 Make sure you are using `node@>=8.11.x` and `neutrino@8.x`.
@@ -164,36 +138,47 @@ Set up `App` component rendering and hot reloading in `src/index.js`.
 
 ### 6. Set up routing
 
-Use [`react-router`](https://github.com/ReactTraining/react-router)@4 for routing.
+Use:
 
-Use [`@usertech/react-routing`](https://github.com/usertech/react-routing) to add imperative navigation,
+- [`react-router`](https://github.com/ReactTraining/react-router)@4 for routing.
+- [`@usertech/react-routing`](https://github.com/usertech/react-routing) to add imperative navigation,
 support for (hash)query params and named routes.
 
-See [`src/paths.js`](src/paths.js),
-[`src/App.js`](src/App.js)
-[`src/screens`](src/screens) and
-[`src/screens/DashboardScreen/index.js`](src/screens/DashboardScreen/index.js) for example.
+See:
+
+- [`src/paths.js`](src/paths.js),
+- [`src/App.js`](src/App.js)
+- [`src/screens`](src/screens) and
+- [`src/screens/DashboardScreen/index.js`](src/screens/DashboardScreen/index.js) for example.
 
 ### 7. Set up styling
 
-Use [`styled-components`](https://github.com/styled-components/styled-components)@4 for component visual styling.
+Use:
 
-Use [`@usertech/styled-utils`](https://github.com/usertech/styled-utils) and refer to it's README for recommended
-styled-components helpers.
+- [`@usertech/neutrino-preset-react-storybook`](https://github.com/usertech/neutrino-preset-react-storybook) for simple react storybook setup to style components in isolation
+- [`styled-components`](https://github.com/styled-components/styled-components)@4 for component visual styling.
+- [`styled-flex-component`](https://github.com/SaraVieira/styled-flex-component) library to create flexbox layouts of your components
+- [`@brabeji/styled-compose`](https://github.com/brabeji/styled-compose) to compose multiple styled components
+- [`@usertech/styled-utils`](https://github.com/usertech/styled-utils) and refer to it's README for recommended styled-components helpers.
+- [`svg-react-loader`](https://github.com/usertech/styled-utils) to load svg files as react components
 
-### 8. Set up data layer with GraphQL and `react-apollo`
+See:
 
-Use [`@usertech/neutrino-preset-graphql`](https://github.com/usertech/neutrino-preset-graphql) to add graphql support to your build.
+- [`.storybook`](.storybook)
+- [`stories`](stories)
+- [`.neutrinorc.js`](.neutrinorc.js) - for svg loader setup
 
-Use [`react-apollo`](https://github.com/apollographql/react-apollo)@2
+### 8. Set up GraphQL and `react-apollo` data layer with data mocks.
 
-Use [`@usertech/apollo-client-utils`](https://github.com/usertech/apollo-client-utils)
+Use:
 
-Use [`react-promise`](https://github.com/capaj/react-promise) to declaratively wait for apollo client instance.
+- [`@usertech/neutrino-preset-graphql`](https://github.com/usertech/neutrino-preset-graphql) to add graphql support to your build.
+- [`react-apollo`](https://github.com/apollographql/react-apollo)@2
+- [`@usertech/apollo-client-utils`](https://github.com/usertech/apollo-client-utils)
+- [`react-promise`](https://github.com/capaj/react-promise) to declaratively wait for apollo client instance.
 
-See [`src/App.js`](src/App.js) and [`src/createApolloClient.js`](src/createApolloClient.js)
+See
 
-
-## Project Structure
-
-// TODO
+- [`src/App.js`](src/App.js)
+- [`src/createApolloClient.js`](src/createApolloClient.js)
+- [`src/mocks`](src/mocks)

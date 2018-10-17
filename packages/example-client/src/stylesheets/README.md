@@ -1,3 +1,3 @@
 # `src/stylesheets`
 
-`styled-components` base stylesheets, reset, mixins, animations etc.
+`styled-components` global stylesheets - reset, animations etc.
