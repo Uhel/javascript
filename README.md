@@ -14,6 +14,7 @@ Refer to [Example Client Project](packages/example-client) to:
 
 ### Build
 - [@usertech/neutrino-preset-eslint-prettier](https://github.com/usertech/neutrino-preset-eslint-prettier)
+- [@usertech/window-env](https://github.com/usertech/window-env)
 
 ### Styling
 - [@usertech/bliss](https://github.com/usertech/bliss)
