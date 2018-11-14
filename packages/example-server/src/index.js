@@ -1,26 +1,50 @@
 const { prisma } = require('./generated/prisma-client');
 const { GraphQLError } = require('graphql');
 const { GraphQLServer } = require('graphql-yoga');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 const bootstrapData = require('./bootstrapData');
+const AuthenticationClient = require('auth0').AuthenticationClient;
 
-prisma.debug = true;
+const auth0 = new AuthenticationClient({
+	clientID: process.env.AUTH_CLIENT_ID,
+	domain: process.env.AUTH_DOMAIN,
+});
 
-const checkUser = (context) => {
-	if (!context.user) {
-		throw new GraphQLError('Unauthorized');
-	}
-	return context.user;
-};
+// prisma.debug = true;
 
 const resolvers = {
 	Query: {
+		currentUser: (root, vars, context) => {
+			return context.user;
+		},
 		channels: async (root, vars, context) => {
 			return context.prisma.channels({ first: 10 });
 		},
 		channel: async (root, { id }, context) => {
 			const channel = await context.prisma.channel({ id });
-			console.log(channel);
 			return channel;
+		},
+		defaultChannel: (root, { id }, context) => {
+			return context.prisma.channel({ title: 'general' });
+		},
+		defaultMessages: async (root, { id }, context) => {
+			const channel = context.prisma.channel({ title: 'general' });
+			const connection = await context.prisma
+				.messagesConnection({
+					where: { channel: { id: channel.id } },
+					orderBy: 'createdAt_DESC',
+					first: 50,
+				})
+				.edges();
+			const messages = await context.prisma.messages({
+				where: { channel: { id: channel.id } },
+				orderBy: 'createdAt_DESC',
+				first: 50,
+			});
+			return {
+				edges: connection.map(({ cursor }, idx) => ({ cursor, node: messages[idx] })),
+			};
 		},
 	},
 	Mutation: {
@@ -28,11 +52,10 @@ const resolvers = {
 			return context.prisma.createUser(input);
 		},
 		sendMessage: async (root, { channelId, input: { content } }, context) => {
-			const john = await context.prisma.user({ email: 'john@doe.com' });
 			return context.prisma.createMessage({
 				content,
 				channel: { connect: { id: channelId } },
-				author: { connect: { id: john.id } },
+				author: { connect: { id: context.user.id } },
 			});
 		},
 	},
@@ -44,9 +67,6 @@ const resolvers = {
 			},
 			subscribe: async (root, { channelId }, context) => {
 				const i = await context.prisma.$subscribe
-					// .message()
-					// .channel({node: {id:channelId}})
-					// .node()
 					.message({
 						where: {
 							mutation_in: ['CREATED'],
@@ -54,12 +74,6 @@ const resolvers = {
 						},
 					})
 					.node();
-				// i.next().then((a) => {
-				// 	console.log('fdsjhagfdshfjdskajfhdskafgsdhjak', a);
-				// });
-				// i.next().then((a) => {
-				// 	console.log('fdsjhagfdshfjdskajfhdskafgsdhjak', a);
-				// });
 				return i;
 			},
 		},
@@ -79,27 +93,64 @@ const resolvers = {
 const server = new GraphQLServer({
 	typeDefs: './schema.graphql',
 	resolvers,
-	context: ({ ...ctx }) => {
+	context: (ctx) => {
 		return {
 			prisma,
 			...ctx,
 		};
 	},
-	// middlewares: [
-	// 	async (resolve, root, args, context, info) => {
-	// 		const authorizationHeader = context.request.get('Authorization');
-	// 		let user;
-	// 		if (authorizationHeader) {
-	// 			const access_token = authorizationHeader.split(' ')[1];
-	// 			if (access_token) {
-	// 				user = await context.prisma.accessToken({ access_token }).user();
-	// 			}
-	// 		}
-	// 		const result = await resolve(root, args, { ...context, user }, info);
-	// 		return result;
-	// 	},
-	// ],
+	middlewares: [
+		async (resolve, root, args, context, info) => {
+			const user = context.request && context.request.user;
+			return await resolve(root, args, { ...context, user }, info);
+		},
+	],
 });
+
+const authMiddlewares = [
+	server.options.endpoint,
+	jwt({
+		secret: jwks.expressJwtSecret({
+			cache: true,
+			rateLimit: true,
+			jwksRequestsPerMinute: 5,
+			jwksUri: process.env.AUTH_JWKS_URL,
+		}),
+		audience: process.env.AUTH_AUDIENCE,
+		issuer: `https://${process.env.AUTH_DOMAIN}/`,
+		algorithms: ['RS256'],
+	}),
+	async (req, res, next) => {
+		if (!req.user) return res.sendStatus(401);
+
+		const sub = req.user.sub;
+		const user = await new Promise(async (resolve, reject) => {
+			let dbUser = await prisma.user({ sub });
+			if (!dbUser) {
+				auth0.users.getInfo(req.headers.authorization.split(' ').pop(), function(err, user) {
+					if (err) {
+						return reject(err);
+					}
+					const { email, name: fullName, picture } = user;
+					dbUser = prisma.createUser({
+						sub,
+						email,
+						fullName,
+						picture,
+					});
+					resolve(dbUser);
+				});
+			} else {
+				resolve(dbUser);
+			}
+		});
+
+		req.user = user;
+		next();
+	},
+];
+server.express.get(...authMiddlewares);
+server.express.post(...authMiddlewares);
 
 bootstrapData(prisma).then(() => {
 	console.log('Data loaded');

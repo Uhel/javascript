@@ -1,0 +1,13 @@
+mutation SendMessageMutation($channelId: ID!, $input: MessageInput!) {
+	sendMessage(channelId: $channelId, input: $input) {
+		id
+		createdAt
+		content
+		author {
+			id
+			email
+			fullName
+			picture
+		}
+	}
+}

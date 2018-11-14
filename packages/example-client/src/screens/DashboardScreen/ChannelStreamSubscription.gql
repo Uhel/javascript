@@ -1,0 +1,13 @@
+subscription ChannelStreamSubscription($channelId: ID!) {
+	channelMessagesStream(channelId: $channelId) {
+		id
+		content
+		createdAt
+		author {
+			id
+			fullName
+			picture
+			email
+		}
+	}
+}

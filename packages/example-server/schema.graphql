@@ -1,8 +1,11 @@
 scalar DateTime
 
 type Query {
+	currentUser: User!
 	channels: [Channel!]!
 	channel(id: ID!): Channel!
+	defaultChannel: Channel!
+	defaultMessages: MessagesConnection!
 }
 
 type Mutation {
@@ -23,6 +26,8 @@ type Counter {
 type User {
 	id: ID!
 	email: String!
+	fullName: String
+	picture: String
 }
 
 input UserInput {
@@ -46,4 +51,13 @@ type Channel {
 	messages: [Message!]!
 	author: User!
 	createdAt: DateTime
+}
+
+type MessageEdge {
+	node: Message!
+	cursor: String
+}
+
+type MessagesConnection {
+	edges: [MessageEdge!]!
 }

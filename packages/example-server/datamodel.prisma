@@ -1,8 +1,9 @@
 type User {
   id: ID! @unique
+  sub: String! @unique
   email: String! @unique
-  password: String
   fullName: String
+  picture: String
   hasGravatar: Boolean
   tacConsent: Boolean! @default(value: true)
   accessTokens: [AccessToken!]!
@@ -28,6 +29,6 @@ type Channel {
   id: ID! @unique
   title: String! @unique
   messages: [Message!]!
-  author: User!
+  author: User
   createdAt: DateTime!
 }

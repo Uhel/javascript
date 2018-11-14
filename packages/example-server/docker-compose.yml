@@ -26,22 +26,30 @@ services:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
     volumes:
-    - postgres:/var/lib/postgresql/data
+    - postgres2:/var/lib/postgresql/data
 
   app:
     build:
       context: .
     environment:
     - NODE_ENV=development
+    - PRISMA_API_HOST=db-api:4466
+    env_file:
+      - .env
     volumes:
     - ./node_modules:/opt/app/node_modules:ro
     - ./src:/opt/app/src:ro
     - ./src/generated:/opt/app/src/generated
-    - ./prisma.yml:/opt/app/prisma.yml:ro
     - ./datamodel.prisma:/opt/app/datamodel.prisma:ro
     - ./schema.graphql:/opt/app/schema.graphql:ro
     ports:
     - "4000:4000"
+    - "9230:9230"
+
+  adminer:
+    image: clue/adminer
+    ports:
+    - "4001:80"
 
 volumes:
-  postgres:
+  postgres2:

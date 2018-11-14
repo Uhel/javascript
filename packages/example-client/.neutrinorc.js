@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
 	use: [
 		'@usertech/neutrino-preset-eslint-prettier',
@@ -33,5 +35,9 @@ module.exports = {
 		},
 		'@usertech/neutrino-preset-graphql',
 		'@usertech/neutrino-preset-react-storybook',
+		[
+			'@neutrinojs/env',
+			['GRAPHQL_API_URL', 'GRAPHQL_WS_URL', 'AUTH_CLIENT_ID', 'AUTH_DOMAIN', 'AUTH_AUDIENCE'],
+		],
 	],
 };

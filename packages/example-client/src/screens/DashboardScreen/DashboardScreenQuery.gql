@@ -1,6 +1,26 @@
 query DashboardScreenQuery {
-	hello
-	foo
-	bar
-	baz
+	currentUser {
+		id
+		email
+		picture
+	}
+	defaultChannel {
+		id
+		title
+	}
+	defaultMessages {
+		edges {
+			node {
+				id
+				content
+				createdAt
+				author {
+					id
+					fullName
+					picture
+					email
+				}
+			}
+		}
+	}
 }
