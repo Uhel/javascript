@@ -571,6 +571,13 @@
   dependencies:
     react-router-named-routes "0.0.23"
 
+"@usertech/window-env@usertech/window-env#0.0.2":
+  version "0.0.1"
+  resolved "https://codeload.github.com/usertech/window-env/tar.gz/27a4bb18b11b0c6f25e78bbb4f5ba43e822cf741"
+  dependencies:
+    dotenv "^6.1.0"
+    html-webpack-template "^6.2.0"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -3534,6 +3541,10 @@ dotenv-webpack@^1.5.5:
 dotenv@^5.0.1:
   version "5.0.1"
   resolved "http://registry.npmjs.org/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
+
+dotenv@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.1.0.tgz#9853b6ca98292acb7dec67a95018fa40bccff42c"
 
 download@^4.0.0, download@^4.1.2:
   version "4.4.3"

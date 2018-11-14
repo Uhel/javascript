@@ -21,6 +21,8 @@ const renderDashboardScreen = () => {
 					return <pre>{JSON.stringify(data, null, 2)}</pre>;
 				}}
 			</Query>
+			<h2>Runtime Env Vars</h2>
+			<pre>{JSON.stringify(window.env, null, 2)}</pre>
 		</div>
 	);
 };

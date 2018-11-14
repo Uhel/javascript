@@ -47,6 +47,7 @@
     "@usertech/neutrino-preset-eslint-prettier": "usertech/neutrino-preset-eslint-prettier#0.0.3",
     "@usertech/neutrino-preset-graphql": "usertech/neutrino-preset-graphql#0.0.1",
     "@usertech/neutrino-preset-react-storybook": "usertech/neutrino-preset-react-storybook#0.0.1",
+    "@usertech/window-env": "usertech/window-env#0.0.2",
     "babel-eslint": "^8.2.6",
     "eslint": "^5.4.0",
     "eslint-config-prettier": "^3.0.1",

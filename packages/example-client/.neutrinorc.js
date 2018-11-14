@@ -15,6 +15,10 @@ module.exports = {
 				},
 			},
 		],
+		[
+			'@usertech/window-env/neutrino-preset',
+			['GRAPHQL_API_URL', 'GRAPHQL_WS_URL', 'AUTH_CLIENT_ID', 'AUTH_DOMAIN', 'AUTH_AUDIENCE'],
+		],
 		(neutrino) => neutrino.config.resolve.modules.add(neutrino.options.source),
 		(neutrino) => {
 			neutrino.config.module.rules.delete('svg');
