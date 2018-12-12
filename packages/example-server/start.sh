@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-./wait-for-it.sh db-api:4466
-prisma deploy --force
-prisma generate
+export NODE_PATH=`yarn global dir`/node_modules
+
+./wait-for-it.sh ${PRISMA_API_HOST}
+
 pm2-runtime start ecosystem.config.js

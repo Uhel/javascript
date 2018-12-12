@@ -6,7 +6,7 @@ const Content = styled.div`
 	white-space: pre-line;
 `;
 
-const Message = ({ content, createdAt, author }) => {
+const Message = ({ content, author }) => {
 	return (
 		<div>
 			<Flex>

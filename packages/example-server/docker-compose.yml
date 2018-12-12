@@ -1,7 +1,7 @@
 version: '3'
 services:
   db-api:
-    image: prismagraphql/prisma:1.17.2
+    image: prismagraphql/prisma:1.21
     restart: always
     ports:
     - "4466:4466"
@@ -34,14 +34,18 @@ services:
     environment:
     - NODE_ENV=development
     - PRISMA_API_HOST=db-api:4466
-    env_file:
-      - .env
+    - AUTH_DOMAIN=uplus-example-app.eu.auth0.com
+    - AUTH_CLIENT_ID=OLFC6zI1Wjv70da049XJNoRhRlwNUZQV
+    - AUTH_AUDIENCE=uplus-example-app
+    - AUTH_JWKS_URL=https://uplus-example-app.eu.auth0.com/.well-known/jwks.json
+    - AUTH_CUSTOM_CLAIMS_NS=uplus-example-app
+    - AUTH_ADMIN_CLIENT_ID=ocj75tD0tUhF6NgtH8ZCMOZlEZDYVLSg
+    - AUTH_ADMIN_CLIENT_SECRET=GWCgbwmKOQppCTlHKuwRdXegI-nZMHZG3G0IWowhD6vIoYxr44T9bmscrGGNQTpS
     volumes:
-    - ./node_modules:/opt/app/node_modules:ro
-    - ./src:/opt/app/src:ro
-    - ./src/generated:/opt/app/src/generated
-    - ./datamodel.prisma:/opt/app/datamodel.prisma:ro
-    - ./schema.graphql:/opt/app/schema.graphql:ro
+    - ./src:/opt/app/src:ro,delegated
+    - ./src/generated:/opt/app/src/generated:delegated
+    - ./datamodel.prisma:/opt/app/datamodel.prisma:ro,delegated
+    - ./schema.graphql:/opt/app/schema.graphql:ro,delegated
     ports:
     - "4000:4000"
     - "9230:9230"

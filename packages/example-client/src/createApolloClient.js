@@ -3,16 +3,12 @@ import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-import { createDefaultApolloClient, createMockLink } from '@usertech/apollo-client-utils';
+import { createDefaultApolloClient } from '@usertech/apollo-client-utils';
 
-import SimpleAuthService from 'utils/SimpleAuthService';
-
-// import typeDefs from '../../example-server/schema.graphql';
-// import resolvers from './mocks/resolvers.js';
-// import mocks from './mocks/mocks.js';
+import { getAuthorizationHeader } from 'modules/token-storage';
 
 const setAuthorizationLink = setContext((request, previousContext) => {
-	const authorization = SimpleAuthService.getAuthorizationHeader();
+	const authorization = getAuthorizationHeader();
 	if (authorization) {
 		return {
 			...previousContext,
@@ -23,20 +19,8 @@ const setAuthorizationLink = setContext((request, previousContext) => {
 });
 
 const createApolloClient = async () => {
-	// const link = createMockLink({
-	// 	typeDefs,
-	// 	resolvers,
-	// 	mocks,
-	// 	operationsDelays: {
-	// 		DashboardScreenQuery: 600,
-	// 		IntrospectionFragmentMatcherQuery: 0,
-	// 	},
-	// 	defaultOperationDelay: 300,
-	// });
-
 	const link = ApolloLink.from([
 		setAuthorizationLink,
-
 		split(
 			({ query }) => {
 				const { kind, operation } = getMainDefinition(query);

@@ -2,6 +2,7 @@ type User {
   id: ID! @unique
   sub: String! @unique
   email: String! @unique
+  lastLoginAt: DateTime
   fullName: String
   picture: String
   hasGravatar: Boolean
