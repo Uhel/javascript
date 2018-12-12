@@ -1,12 +1,13 @@
 import React from 'react';
 import { compose, pure, lifecycle, withHandlers } from 'recompose';
 import { Form, Field } from 'react-final-form';
-import { Query, Mutation, Subscription } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 
 import ScreenLayout from 'components/ScreenLayout';
 import Header from 'components/Header';
 
 import Flex, { FlexItem } from 'styled-flex-component';
+import withAuthz from 'decorators/withAuthz';
 import TextareaFormControl from 'form-controls/TextareaFormControl';
 import Space from 'primitives/Space';
 import Button from 'components/Button';
@@ -23,6 +24,7 @@ const Lifecycle = lifecycle({
 })(() => null);
 
 const withDashboardScreen = compose(
+	withAuthz(),
 	withHandlers(() => {
 		let scrollAnchor;
 		let textArea;
@@ -159,12 +161,11 @@ const renderDashboardScreen = ({
 								});
 							}}
 						/>
+						<h2>Runtime Env Vars</h2>
+						<pre>{JSON.stringify(window.env, null, 2)}</pre>
 					</ScreenLayout>
 				);
 			}}
-
-			<h2>Runtime Env Vars</h2>
-			<pre>{JSON.stringify(window.env, null, 2)}</pre>
 		</Query>
 	);
 };

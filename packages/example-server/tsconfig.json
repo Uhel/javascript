@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+	"outDir": "./build",
+	"rootDir": "./",
+	"allowSyntheticDefaultImports": true,
+	"esModuleInterop": true,
+	"module": "commonjs",
+	"target": "es2015",
+	"allowJs": true,
+	"noImplicitAny": false,
+	"baseUrl": "./src",
+	"paths": {
+	  "*": [
+		"./*"
+	  ]
+	}
+  }
+}

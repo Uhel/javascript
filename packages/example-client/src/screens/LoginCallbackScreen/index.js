@@ -1,21 +1,14 @@
 import React from 'react';
-import { compose, lifecycle } from 'recompose';
+import { compose } from 'recompose';
 import { withNavigation } from '@usertech/react-routing';
-
-import SimpleAuthService from 'utils/SimpleAuthService';
+import { withLoginCallbackHandler } from 'modules/auth';
+import { Redirect } from 'react-router';
 
 const LoginCallbackScreen = compose(
 	withNavigation,
-	lifecycle({
-		componentDidMount() {
-			const { navigate } = this.props;
-			SimpleAuthService.handleAuthentication().then(() => {
-				navigate('/');
-			});
-		},
-	}),
+	withLoginCallbackHandler,
 )(() => {
-	return <div>login success</div>;
+	return <Redirect to="/" />;
 });
 
 export default LoginCallbackScreen;

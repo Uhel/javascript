@@ -4,10 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "neutrino build",
-    "start": "neutrino start",
-    "lint": "neutrino lint",
-    "storybook": "neutrino start --options.storybook --options.port 5001"
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "start": "concurrently 'webpack-dev-server --mode development --port 5000' 'yarn generate-types --watch'",
+    "storybook": "start-storybook -p 5001 -c .storybook",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src",
+    "generate-types": "$(cat .env | xargs -n1 echo export) && yarn apollo codegen:generate --target typescript --addTypename --outputFlat --includes './src/**/*.gql' --localSchemaFile ../example-server/schema.graphql src/server-api.d.ts"
   },
   "dependencies": {
     "@brabeji/styled-compose": "brabeji/styled-compose#0.0.1",
@@ -48,17 +51,22 @@
     "subscriptions-transport-ws": "^0.9.15"
   },
   "devDependencies": {
-    "@neutrinojs/react": "^8.3.0",
-    "@storybook/addon-actions": "^3.4.11",
-    "@storybook/addon-info": "3.4.11",
-    "@storybook/addons": "^3.4.11",
-    "@storybook/react": "^3.4.11",
+    "@babel/preset-typescript": "^7.1.0",
+    "@neutrinojs/eslint": "^9.0.0-rc.0",
+    "@neutrinojs/react": "^9.0.0-rc.0",
+    "@storybook/addon-actions": "^4.0.11",
+    "@storybook/addon-info": "^4.0.11",
+    "@storybook/addons": "^4.0.11",
+    "@storybook/react": "^4.0.11",
     "@usertech/neutrino-preset-eslint-prettier": "usertech/neutrino-preset-eslint-prettier#0.0.3",
     "@usertech/neutrino-preset-graphql": "usertech/neutrino-preset-graphql#0.0.1",
-    "@usertech/neutrino-preset-react-storybook": "usertech/neutrino-preset-react-storybook#0.0.1",
     "@usertech/window-env": "usertech/window-env#0.0.2",
+    "apollo": "^2.1.7",
     "apollo-link-logger": "^1.2.3",
     "babel-eslint": "^8.2.6",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-styled-components": "^1.9.2",
+    "concurrently": "^4.1.0",
     "dotenv": "^6.1.0",
     "eslint": "^5.4.0",
     "eslint-config-prettier": "^3.0.1",
@@ -66,8 +74,14 @@
     "eslint-plugin-flowtype": "^2.50.0",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
-    "neutrino": "^8.3.0",
-    "prettier": "^1.14.2",
-    "svg-react-loader": "^0.4.6"
+    "html-webpack-template": "^6.2.0",
+    "neutrino": "^9.0.0-rc.0",
+    "prettier": "^1.15.3",
+    "svg-react-loader": "^0.4.6",
+    "webpack": "^4.26.1",
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "yargs": "^12.0.5"
   }
 }

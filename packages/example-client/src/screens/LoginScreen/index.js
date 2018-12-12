@@ -1,12 +1,14 @@
 import React from 'react';
-import { lifecycle } from 'recompose';
-import SimpleAuthService from 'utils/SimpleAuthService';
+import {compose, lifecycle } from 'recompose';
+import {withLogin} from 'modules/auth';
 
-const LoginScreen = lifecycle({
+const LoginScreen = compose(withLogin,
+	lifecycle({
 	componentDidMount() {
-		SimpleAuthService.login();
+		const {login}=this.props;
+		login()
 	},
-})(() => {
+}))(() => {
 	return <div>login</div>;
 });
 
